@@ -26,3 +26,40 @@ export const getContacts = (req, res) => {
         }
     });
 }
+
+export const getContactWithID = (req, res) => {
+    Contact.findById(req.params.contactID, (err, contact) => { // contactID deve coincidere con contactID (parametri con lo stesso nome) indicato nelle route
+        if (err) {
+            res.send(err);
+        } else {
+            res.json(contact);
+        }
+    });
+}
+
+export const updateContact = (req, res) => {
+    Contact.findOneAndUpdate({
+        _id: req.params.contactID
+    }, req.body, {
+        new: true,
+        useFindAndModify: false
+    }, (err, contact) => {
+        if (err) {
+            res.send(err);
+        } else {
+            res.json(contact);
+        }
+    });
+}
+
+export const deleteContact = (req, res) => {
+    Contact.findOneAndDelete(req.params.contactID, (err, contact) => {
+        if (err) {
+            res.send(err);
+        } else {
+            res.json({
+                message: 'Successfuly deleted contact!'
+            })
+        }
+    });
+}

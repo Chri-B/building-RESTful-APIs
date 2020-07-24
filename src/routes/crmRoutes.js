@@ -1,6 +1,9 @@
 import {
     addNewContact,
-    getContacts
+    getContacts,
+    getContactWithID,
+    updateContact,
+    deleteContact
 } from '../controllers/crmController';
 
 // creo const routes che definisco con arrow function: creazione endpoints dell'API
@@ -13,14 +16,18 @@ const routes = (app) => {
             next(); // passa alla funzione successiva
         }, getContacts)
 
+        // Post endpoint
         .post(addNewContact);
 
     app.route('/contact/:contactID')
-        .put((req, res) =>
-            res.send('PUT request successful!'))
+        // get a specific contact
+        .get(getContactWithID)
 
-        .delete((req, res) =>
-            res.send('DELETE request successful!'))
+        // updating a specific contact
+        .put(updateContact)
+
+        // deleting a specific contact
+        .delete(deleteContact)
 }
 
 // esporto la costante creata tramite comando sotto
