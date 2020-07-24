@@ -1,3 +1,8 @@
+import {
+    addNewContact,
+    getContacts
+} from '../controllers/crmController';
+
 // creo const routes che definisco con arrow function: creazione endpoints dell'API
 const routes = (app) => {
     app.route('/contact')
@@ -6,12 +11,9 @@ const routes = (app) => {
             console.log(`Request from: ${req.originalUrl}`) // nel terminale vedrò: Request from: /contact
             console.log(`Request type: ${req.method}`) // nel terminale vedrò: Request type: GET
             next(); // passa alla funzione successiva
-        }, (req, res, next) => { // la funzione successiva è definita con le stesse variabili in ingresso
-            res.send('GET request successful!')
-        })
+        }, getContacts)
 
-        .post((req, res) =>
-            res.send('POST request successful!'));
+        .post(addNewContact);
 
     app.route('/contact/:contactID')
         .put((req, res) =>
